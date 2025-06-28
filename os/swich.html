@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+body {
+  background-color: #8B008B;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.card {
+  background-color: #C080C0; /* 比#8B008B略白的颜色 */
+  color: white;
+  padding: 10px;
+  border-radius: 10px; /* 圆角 */
+  text-align: center;
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+}
+.card a {
+text-decoration: none;
+  background-color: #C080C0; /* 比#8B008B略白的颜色 */
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+.text{
+text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="card">切换用户<br /><br /><a href="logonkernel.html">Mbilse</a><br /><br /><a href="logonkernel.html">Administrator</a><br /><br /><a href="logonkernel.html">Guest User</a></div>
+
+<div></div>
+
+<br />
+<script>
+let startY = 0;
+        let endY = 0;
+
+        document.addEventListener('touchstart', function(event) {
+            startY = event.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', function(event) {
+            endY = event.changedTouches[0].clientY;
+            if (endY - startY > 20) { // 向上滑动超过20px
+                window.location.href = 'lock.html';
+            }
+        });
+</script>
+</body>
+</html>

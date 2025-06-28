@@ -1,0 +1,72 @@
+<!doctype html>
+<meta charset="UTF-8">
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<title>MSR BIOS</title>
+<style>
+        body {
+            background-color: #000;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .text {
+            position: absolute;
+           
+            transform: translateX(-50%);
+            color: #fff;
+            
+            font-family: Arial, sans-serif;
+            white-space: nowrap;
+            
+        }
+        .text a {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffa;
+            
+            font-family: Arial, sans-serif;
+            white-space: nowrap;
+            text-align: center;
+        }
+         @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        .loader {
+            text-align: center;
+            
+        }
+        .loader span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            margin: 0 5px;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+        .loader span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        .loader span:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        </style>
+</head>
+<body>
+<div class="text">MSR BIOS 1.0<br />Copyright Mbilse All rights.<br />Have a try to UEFI start<br />Starting...<br /><br /><br />This is scripts>><br />Starting Mbilse OS......Ready<br />Installed Done......Ready<br />is ready boots up system......<br /><br /><br /><a href="bios.html">BIOS Setup(press here)</a></div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br />
+<div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+<script>
+setInterval(function(){window.location.href = 'aup.html';},4500);</script>
+</body>
+</html>

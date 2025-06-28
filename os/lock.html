@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>锁屏页面</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: cyan; /* 浅蓝色背景 */
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            touch-action: none; /* 禁用默认的触摸行为 */
+        }
+        .time-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .time-container h1 {
+            color: white;
+            margin: 0;
+            font-size: 38px;
+        }
+        .time-container h5 {
+            color: white;
+            margin: 0;
+            font-size: 18px;
+        }
+        .battery {
+            position: absolute;
+            
+            
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="time-container">
+        <h1 id="time"></h1>
+        <h5 id="dayOfWeek"><div class="battery" id="battery"></div>向下
+        </h5>
+        
+    </div>
+   <p>向上滑动进入<br /></p>
+    
+    
+
+    <script>
+        // 获取当前时间并更新到页面
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toTimeString().slice(0, 5); // 获取时分
+            const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][now.getDay()];
+            document.getElementById('time').textContent = timeString;
+            document.getElementById('dayOfWeek').textContent = dayOfWeek;
+        }
+        setInterval(updateTime, 1000); // 每秒更新时间
+
+        // 获取电池电量并更新到页面
+        function updateBattery() {
+            navigator.getBattery().then(function(battery) {
+                const batteryLevel = Math.round(battery.level * 100);
+                document.getElementById('battery').textContent = `${batteryLevel}%`;
+            });
+        }
+        setInterval(updateBattery, 60000); // 每分钟更新电量
+        updateTime(); // 初始化时间
+        updateBattery(); // 初始化电量
+
+        // 监听触摸事件
+        let startY = 0;
+        let endY = 0;
+
+        document.addEventListener('touchstart', function(event) {
+            startY = event.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', function(event) {
+            endY = event.changedTouches[0].clientY;
+            if (startY - endY > 20) { // 向上滑动超过20px
+                window.location.href = 'logonui.html';
+            }
+        });
+        document.addEventListener('touchstart', function(event) {
+            startX = event.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', function(event) {
+            endX = event.changedTouches[0].clientX;
+            if (startX - endX > 100) { // 向上滑动超过100px
+                window.location.href = 'voice.html';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<style>
+  body {
+    background-image: url('https://cn.bing.com/th?id=OHR.PlumParakeet_ZH-CN0311942558_1080x1920_logo.jpg&rf=LaDigue_1920x1200.jpg'); /* 替换为实际的图片URL */
+    background-size: cover; /* 使背景图片覆盖整个网页 */
+    background-position: center; /* 背景图片居中显示 */
+    background-repeat: no-repeat; /* 背景图片不重复 */
+    height: 100vh; /* 设置body的高度为视口的100% */
+    margin: 0; /* 移除默认的边距 */
+    display: flex; /* 使用flex布局 */
+  }
+
+.copilot-card {
+  /* 其他样式保持不变 */
+  animation: slideInFromRight 0.5s ease-in-out;
+}
+
+.copilot-card.hidden {
+  animation: slideOutToRight 0.5s ease-in-out;
+  display: none;
+}
+
+  .sidebar {
+    width: 50px; /* 导航栏宽度 */
+    background-color: #8b008b; /* 导航栏背景颜色 */
+    height: 100%; /* 导航栏高度 */
+    padding: 20px; /* 导航栏内边距 */
+    box-sizing: border-box; /* 边框计算在宽度内 */
+  }
+
+  .sidebar ul {
+    list-style-type: none; /* 移除列表项的默认样式 */
+    padding: 0; /* 移除列表项的默认内边距 */
+  }
+
+  .sidebar ul li {
+    margin-bottom: 25px; /* 列表项之间的间距 */
+  }
+
+  .sidebar ul li a {
+    color: white; /* 链接文字颜色 */
+    text-decoration: none; /* 移除链接的下划线 */
+    font-size: 20px; /* 字体大小 */
+   
+    padding: 3px; /* 链接内边距 */
+  }
+.minimize-button {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  background-color: yellow;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.maximize-button {
+  position: absolute;
+  top: 10px;
+  left: 30px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+  .obar {
+    
+    justify-content: flex-end; /* 将内容靠右对齐 */
+    padding: 5px; /* 内边距 */
+  }
+
+  .obar a {
+    color: white; /* 链接文字颜色 */
+    text-decoration: none; /* 移除链接的下划线 */
+    font-size: 20px; /* 字体大小 */
+    padding: 3px; /* 链接内边距 */
+  }
+
+  .sidebar ul li a:hover,
+  .sidebar ul li a.active {
+    background-color: #550055; /* 鼠标悬停或选中时的背景颜色 */
+    color: #ffcc00; /* 鼠标悬停或选中时的链接文字颜色 */
+  }
+.start a{
+color: yellow;
+}
+.start a:hover{
+color: white;
+}
+.context-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  z-index: 1000;
+}
+
+.context-menu a {
+  display: block;
+  padding: 5px;
+  color: black;
+  text-decoration: none;
+}
+
+.context-menu a:hover {
+  background-color: #f0f0f0;
+}
+  .start {
+    display: none; /* 初始隐藏 */
+    position: absolute; /* 绝对定位 */
+    right: 0; /* 放在右边 */
+    top: 50%; /* 垂直居中 */
+    transform: translateY(-50%); /* 垂直居中微调 */
+    color: white; /* 文字颜色 */
+    font-size: 20px; /* 字体大小 */
+    padding: 10px; /* 内边距 */
+    background-color: #550055; /* 背景颜色 */
+    border-radius: 5px; /* 圆角 */
+  }
+#mousePointer {
+  position: absolute;
+  font-size: 24px; /* 设置字体大小 */
+  color: black; /* 设置颜色 */
+  pointer-events: none; /* 防止鼠标箭头元素影响其他元素的点击事件 */
+}
+
+  .copilot-card {
+    display: none; /* 初始隐藏 */
+    position: absolute; /* 绝对定位 */
+    top: 50%; /* 垂直居中 */
+    left: 50%; /* 水平居中 */
+    transform: translate(-50%, -50%); /* 居中微调 */
+    width: 600px; /* 卡片宽度 */
+    height: 400px; /* 卡片高度 */
+    background-color: #8b008b; /* 卡片背景颜色 */
+    border-radius: 10px; /* 圆角 */
+    padding: 20px; /* 内边距 */
+    box-sizing: border-box; /* 边框计算在宽度内 */
+    z-index: 1000; /* 确保卡片在最上层 */
+  }
+
+  .close-button {
+    position: absolute; /* 绝对定位 */
+    top: 10px; /* 距离顶部10px */
+    left: 10px; /* 距离左侧10px */
+    background-color: red; /* 背景颜色 */
+    color: white; /* 文字颜色 */
+    border: none; /* 无边框 */
+    border-radius: 50%; /* 圆形 */
+    width: 20px; /* 宽度 */
+    height: 20px; /* 高度 */
+    cursor: pointer; /* 鼠标样式 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  iframe {
+    width: 100%; /* iframe宽度 */
+    height: 100%; /* iframe高度 */
+    border: none; /* 无边框 */
+  }
+</style>
+<title>Mbilse OS</title>
+</head>
+<body>
+  <div class="sidebar">
+    <ul>
+      <li><a href="#file">📂</a></li>
+      <li><a href="#1"></a></li>
+      <li><a href="#2"></a></li>
+      <li><a href="#3"></a></li>
+      <li><a href="#4"></a></li>
+      <li><a href="#5"></a></li>
+      <li><a href="#6"></a></li>
+      <li><a href="#7"></a></li>
+      <li><a href="#8"></a></li>
+      <li><a href="#start" id="startIcon">🔲</a></li>
+    </ul>
+  </div><div id="mousePointer" style="position: absolute; font-size: 15px; color: black; pointer-events: none;"><img src="https://static.fotor.com.cn/assets/stickers/12035/b79e5bbb-5276-49ed-90cc-e94be04bbc54_medium_thumb.jpg" hight="15px" width="15px"></img></div>
+<div id="contextMenu" class="context-menu">
+  <a href="javascript:void(0);" onclick="location.reload();">刷新</a>
+<a href="#" id="contextStart">开始菜单</a>
+<a href="reload.html">重新启动</a>
+<a href="power.html">关机</a>
+<a href="logout.html">注销</a>
+<a href="updateui.html">更新</a>
+<a href="desktop.html">切换模式</a>
+</div>
+  <div class="obar"><a href="https://github.com/">🐱</a></div>
+  <div class="obar"><a href="https://mbilse.github.io/mbilsedos/">>_</a></div>
+  <div class="obar"><a href="https://mbilse.github.io/copilot/">💬</a></div>
+  <div class="start" id="startMenu">Start Menu<br />-----------<br />电脑端页面<br />----------- <br />Power<br /><a href="reload.html">重新启动</a><br /><a href="power.html">关机 .</a><a href="logout.html">. 注销</a><br /><a href="update.html">. 更新 .</a><br />-----------<br />Applications<br /><a href="#" id="copilotLink">Copilot AI</a>
+  <br />
+  <a href="desktop.html">移动端支持</a></div>
+
+  <!-- Copilot Card -->
+  <div class="copilot-card" id="copilotCard">
+    <button class="close-button" id="closeButton"></button><button class="minimize-button" id="minimizeButton"></button>
+<button class="maximize-button" id="maximizeButton"></button>
+    <iframe hight="70px" width="50px" src="https://mbilse.github.io/copilot/"></iframe>
+  </div>
+
+<script>
+  // 获取小白块图标和Start菜单
+  const startIcon = document.getElementById('startIcon');
+  const startMenu = document.getElementById('startMenu');
+  const copilotLink = document.getElementById('copilotLink');
+  const copilotCard = document.getElementById('copilotCard');
+  const closeButton = document.getElementById('closeButton');
+
+  // 点击小白块图标时切换Start菜单的显示状态
+  startIcon.addEventListener('click', function() {
+    if (startMenu.style.display === 'none') {
+      startMenu.style.display = 'block';
+    } else {
+      startMenu.style.display = 'none';
+    }
+  });
+
+// 点击Copilot AI链接时显示卡片
+copilotLink.addEventListener('click', function(event) {
+  event.preventDefault(); // 阻止默认的链接行为
+  copilotCard.classList.remove('hidden');
+  copilotCard.style.display = 'block';
+});
+
+// 点击关闭按钮时隐藏卡片
+closeButton.addEventListener('click', function() {
+  copilotCard.classList.add('hidden');
+});
+
+  // 点击Copilot AI链接时显示卡片
+  copilotLink.addEventListener('click', function(event) {
+    event.preventDefault(); // 阻止默认的链接行为
+    copilotCard.style.display = 'block';
+  });
+
+  // 点击关闭按钮时隐藏卡片
+  closeButton.addEventListener('click', function() {
+    copilotCard.style.display = 'none';
+  });
+  minimizeButton.addEventListener('click', function() {
+  copilotCard.style.display = 'none';
+  sidebar.style.background = 'url("minimize-icon.png") no-repeat right top'; // 假设有一个最小化图标
+});
+
+// 最大化按钮功能
+maximizeButton.addEventListener('click', function() {
+  window.open('https://mbilse.github.io/copilot/', '_blank');
+});
+document.addEventListener('mousemove', function(event) {
+  var mousePointer = document.getElementById('mousePointer');
+  mousePointer.style.left = event.pageX + 'px'; // 更新鼠标箭头的位置
+  mousePointer.style.top = event.pageY + 'px';
+});
+// 获取鼠标菜单
+const contextMenu = document.getElementById('contextMenu');
+
+// 显示鼠标菜单
+function showContextMenu(x, y) {
+  contextMenu.style.display = 'block';
+  contextMenu.style.left = x + 'px';
+  contextMenu.style.top = y + 'px';
+}
+
+// 隐藏鼠标菜单
+function hideContextMenu() {
+  contextMenu.style.display = 'none';
+}
+
+// 监听右键事件
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault(); // 阻止默认的右键菜单
+  showContextMenu(event.pageX, event.pageY);
+});
+
+// 监听点击事件，点击其他地方时隐藏菜单
+document.addEventListener('click', function() {
+  hideContextMenu();
+});
+const contextStart = document.getElementById('contextStart');
+
+  // 为右键菜单中的“开始菜单”添加点击事件
+  contextStart.addEventListener('click', function(event) {
+    event.preventDefault(); // 阻止默认的链接行为
+    if (startMenu.style.display === 'none' || startMenu.style.display === '') {
+      startMenu.style.display = 'block';
+    } else {
+      startMenu.style.display = 'none';
+    }
+  });
+
+</script>
+</body>
+</html>
