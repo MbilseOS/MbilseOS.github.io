@@ -32,6 +32,6 @@
 
 ## 安装和使用
 
-因为这里暂时没有Release,所以只有网页版,你点一下 [这里](https://mbilseos.github.io)
+因为这里暂时没有Release,所以只有网页版,你点一下 [这里](https://mbilseos.github.io/os) 就可以了。
 
 
